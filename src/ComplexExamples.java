@@ -174,42 +174,40 @@ public class ComplexExamples {
 
 
 
-        System.out.println(fuzzySearch("cwhl","ca6$$#_rtwheel"));
+        System.out.println(fuzzySearch("cwhee","cartwheel"));
      }
-
-    static boolean fuzzySearch (String string1, String string2 ) {
-            char[] chararray1 = string1.toCharArray();
-            char[] chararray2 = string2.toCharArray();
-
-            int count=-1;
-            boolean contains=false;
-            for (int i=0; i<chararray1.length;i++){
-                for (int k= 0; k<chararray2.length;k++){
-                    if (chararray1[i]==chararray2[k]){
-                        contains = true;
-                        break;
-                    }
-
-                }
-                if(contains) {
-                    for (int j = 0; j < chararray2.length; j++) {
-
-                        if (chararray1[i] == chararray2[j]) {
-                            if (j <= count) {
-                                 return false;
-                            } else {
-                                count = j;
-                             }
-                        }
-                    }
-                }
-                else {
-
-                    return false;
-                }
+    static boolean contains(char item,char[] arr){
+        for (int i=0; i<arr.length;i++){
+            if (item == arr[i]){
+                return true;
             }
-            return true;
         }
+        return false;
+    }
+    static boolean fuzzySearch (String string1, String string2 ) {
+        char[] chararray1 = string1.toCharArray();
+        char[] chararray2 = string2.toCharArray();
+        int index=0;
+        for (int i=0; i<chararray1.length;i++){
+
+            for (int j = 0; j < chararray2.length; j++) {
+                if(contains(chararray1[i],chararray2)) {
+                    if (chararray1[i] == chararray2[j]) {
+                        if (index>j){return false;}
+                        index=j;
+                        //System.out.println(chararray1[i] + " -" +i +"-" + j); //вывод индексов массивов
+                        chararray2[j]=0;
+                        break;
+
+                    }
+
+                }
+                else {return false;}
+            }
+
+        }
+        return true;
+    }
 
 
 }
