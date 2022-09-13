@@ -174,7 +174,7 @@ public class ComplexExamples {
 
 
 
-        System.out.println(fuzzySearch(null,"cartwheel"));
+        System.out.println(fuzzySearch("cwhee","cartwheel"));
      }
     static boolean contains(char item,char[] arr){
         for (int i=0; i<arr.length;i++){
