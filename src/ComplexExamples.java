@@ -174,7 +174,7 @@ public class ComplexExamples {
 
 
 
-        System.out.println(fuzzySearch("cwhee","cartwheel"));
+        System.out.println(fuzzySearch(null,"cartwheel"));
      }
     static boolean contains(char item,char[] arr){
         for (int i=0; i<arr.length;i++){
@@ -185,6 +185,14 @@ public class ComplexExamples {
         return false;
     }
     static boolean fuzzySearch (String string1, String string2 ) {
+        if (string1==null){
+            System.out.println("Value of parameter is Null");
+            return false;
+        }
+        if (string2==null){
+            System.out.println("Value of parameter is Null");
+            return false;
+        }
         char[] chararray1 = string1.toCharArray();
         char[] chararray2 = string2.toCharArray();
         int index=0;
