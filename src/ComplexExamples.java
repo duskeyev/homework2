@@ -115,13 +115,12 @@ public class ComplexExamples {
                     Key: Jack
                     Value:1
          */
-        RAW_DATA = Arrays.stream(RAW_DATA).distinct()
-                .toArray(Person[]::new);
+
 
         Arrays.sort(RAW_DATA, Comparator.comparing(Person::getId));
 
 
-        Map<String, List<Person>> DATA = Arrays.stream(RAW_DATA).collect(
+        Map<String, List<Person>> DATA = Arrays.stream(RAW_DATA).distinct().collect(
                 Collectors.groupingBy(Person::getName));
         for(Map.Entry<String, List<Person>> item : DATA.entrySet()){
 
@@ -174,16 +173,9 @@ public class ComplexExamples {
 
 
 
-        System.out.println(fuzzySearch("cwhee","cartwheel"));
+        System.out.println(fuzzySearch("cwheeel","cartwheel"));
      }
-    static boolean contains(char item,char[] arr){
-        for (int i=0; i<arr.length;i++){
-            if (item == arr[i]){
-                return true;
-            }
-        }
-        return false;
-    }
+
     static boolean fuzzySearch (String string1, String string2 ) {
         if (string1==null){
             System.out.println("Value of parameter is Null");
@@ -195,22 +187,30 @@ public class ComplexExamples {
         }
         char[] chararray1 = string1.toCharArray();
         char[] chararray2 = string2.toCharArray();
+        char[] chararray3 = new char[chararray1.length];
         int index=0;
+        int chararray3Index=0;
         for (int i=0; i<chararray1.length;i++){
 
             for (int j = 0; j < chararray2.length; j++) {
-                if(contains(chararray1[i],chararray2)) {
-                    if (chararray1[i] == chararray2[j]) {
-                        if (index>j){return false;}
-                        index=j;
-                        //System.out.println(chararray1[i] + " -" +i +"-" + j); //вывод индексов массивов
-                        chararray2[j]=0;
-                        break;
 
-                    }
+                if (chararray1[i] == chararray2[j]) {
+                    if (index>j){return false;}
+                    index=j;
+                    //System.out.println(chararray1[i] + " -" +i +"-" + j); //вывод индексов массивов
+                    chararray3[chararray3Index] = chararray2[j];
+                    chararray3Index++;
+                    chararray2[j]=0;
+                    break;
 
                 }
-                else {return false;}
+
+            }
+
+        }
+        for (int i=0; i< chararray1.length; i++){
+            if (chararray1[i]!=chararray3[i]){
+                return false;
             }
 
         }
